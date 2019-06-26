@@ -10,7 +10,6 @@ jobs:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
-          _JAVA_OPTIONS: -Djdk.net.URLClassPath.disableClassPathURLCheck=true
           
     steps:
 
@@ -26,7 +25,7 @@ jobs:
             - ~/.m2
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
       
-      - run: mvn package
+      - run: _JAVA_OPTIONS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true mvn clean compile package
       
       - store_test_results:
           path: target/surefire-reports
